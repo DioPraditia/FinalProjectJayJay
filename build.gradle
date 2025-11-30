@@ -56,7 +56,7 @@ test {
 
     def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
 
-    tasks.register('cucumber', JavaExec){
+    tasks.register('CucumberApiTest', JavaExec){
         description("Running Cucumber Test")
         group = 'verification'
 
@@ -69,7 +69,7 @@ test {
                 '--plugin', 'html:reports/test-report-html',
                 '--plugin', 'pretty',
                 '--glue', 'com.dio',
-                '--tags', "${tags}",
+                '--tags', "@api",
                 'src/test/resources'
         ]
     }
