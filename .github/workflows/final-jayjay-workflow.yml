@@ -1,33 +1,59 @@
-name: Run Tests
+name: Automation Testing (Web & API)
 
 on:
+  workflow_dispatch:
   push:
     branches: ["main"]
   pull_request:
+    branches: ["main"]
 
 jobs:
-  build:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 11
+          distribution: "temurin"
+          java-version: "17"
 
-      - name: Grant Execute Permission for Gradle
+      - name: Give gradlew permission
         run: chmod +x gradlew
 
-      - name: Run Tests
-        run: ./gradlew test
+      # ==============================
+      # API TEST
+      # ==============================
+      - name: Run API Tests (@api)
+        run: ./gradlew clean cucumberApiTest
 
-      - name: Upload Test Reports
+      - name: Upload API Test Reports (Artifacts v4)
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-reports
-          path: build/reports/tests/test
+          name: api-test-report
+          path: |
+            build/reports/cucumber/**
+            build/cucumber-reports/**
+            build/reports/tests/**
+          if-no-files-found: ignore
+
+      # ==============================
+      # WEB TEST
+      # ==============================
+      - name: Run Web Tests (@web)
+        run: ./gradlew clean cucumberWebTest
+
+      - name: Upload Web Test Reports (Artifacts v4)
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-test-report
+          path: |
+            build/reports/cucumber/**
+            build/cucumber-reports/**
+            build/reports/tests/**
+          if-no-files-found: ignore
