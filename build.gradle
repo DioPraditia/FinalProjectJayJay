@@ -54,9 +54,32 @@ test {
         }
     }
 
-    def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+      tasks.register('CucumberApiTest'){
+        useTestNG()
 
-    tasks.register('CucumberWebTest', JavaExec){
+        // Locate runner API
+        include '**/CucumberApiTest.class'
+
+        // Jalankan hanya tag @api
+        systemProperty "cucumber.filter.tags", "@api"
+
+        // Output report
+        outputs.upToDateWhen { false }
+    }
+
+    tasks.register('CucumberWebTest') {
+        useTestNG()
+
+        // Locate runner Web
+        include '**/CucumberWebTest.class'
+
+        // Jalankan hanya tag @web
+        systemProperty "cucumber.filter.tags", "@web"
+
+        outputs.upToDateWhen { false }
+    }
+
+        tasks.register('cucumber', JavaExec){
         description("Running Cucumber Test")
         group = 'verification'
 
@@ -69,7 +92,6 @@ test {
                 '--plugin', 'html:reports/test-report-html',
                 '--plugin', 'pretty',
                 '--glue', 'com.dio',
-                '--tags', "@api",
                 'src/test/resources'
         ]
     }
