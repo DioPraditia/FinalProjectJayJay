@@ -56,7 +56,7 @@ test {
 
     def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
 
-    tasks.register('CucumberApiTest', JavaExec){
+    tasks.register('CucumberWebTest', JavaExec){
         description("Running Cucumber Test")
         group = 'verification'
 
@@ -74,18 +74,4 @@ test {
         ]
     }
 
-    === Custom Gradle Task untuk menjalankan test berdasarkan tag ===
-    tasks.register('CucumberApiTest') {
-        useTestNG()
-        systemProperty "cucumber.filter.tags", "@api"
-        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
-        testLogging.events "passed", "failed"
-    }
-
-    tasks.register('CucumberWebTest'){
-        useTestNG()
-        systemProperty "cucumber.filter.tags", "@web"
-        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
-        testLogging.events "passed", "failed"
-    }
 }
