@@ -74,12 +74,18 @@ test {
         ]
     }
 
-    // === Custom Gradle Task untuk menjalankan test berdasarkan tag ===
-//    task apiTest(type: Test) {
-//        useTestNG()
-//        systemProperty "cucumber.filter.tags", "@api"
-//        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
-//        testLogging.events "passed", "failed"
-//    }
+    === Custom Gradle Task untuk menjalankan test berdasarkan tag ===
+    tasks.register('CucumberApiTest') {
+        useTestNG()
+        systemProperty "cucumber.filter.tags", "@api"
+        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
+        testLogging.events "passed", "failed"
+    }
 
+    tasks.register('CucumberWebTest'){
+        useTestNG()
+        systemProperty "cucumber.filter.tags", "@web"
+        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
+        testLogging.events "passed", "failed"
+    }
 }
