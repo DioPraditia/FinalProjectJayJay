@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
                 glue = {"com.dio"},
         plugin = {
                 "pretty",                                      // console output
-                "html:target/cucumber-reports/cucumber.html",  // HTML report
-                "json:target/cucumber-reports/cucumber.json"   // JSON report
+                "html:reports/API/cucumber.html",  // HTML report
+                "json:reports/API/cucumber.json"   // JSON report
         },
         monochrome = true,
         tags = "@api"

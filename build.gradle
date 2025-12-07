@@ -54,9 +54,32 @@ test {
         }
     }
 
-    def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+    tasks.register('CucumberApiTest'){
+        useTestNG()
 
-    tasks.register('cucumber', JavaExec){
+        // Locate runner API
+        include '**/CucumberApiTest.class'
+
+        // Jalankan hanya tag @api
+        systemProperty "cucumber.filter.tags", "@api"
+
+        // Output report
+        outputs.upToDateWhen { false }
+    }
+
+    tasks.register('CucumberWebTest') {
+        useTestNG()
+
+        // Locate runner Web
+        include '**/CucumberWebTest.class'
+
+        // Jalankan hanya tag @web
+        systemProperty "cucumber.filter.tags", "@web"
+
+        outputs.upToDateWhen { false }
+    }
+
+        tasks.register('cucumber', JavaExec){
         description("Running Cucumber Test")
         group = 'verification'
 
@@ -69,15 +92,43 @@ test {
                 '--plugin', 'html:reports/test-report-html',
                 '--plugin', 'pretty',
                 '--glue', 'com.dio',
-                '--tags', "${tags}",
                 'src/test/resources'
         ]
+
+
     }
 
-    // === Custom Gradle Task untuk menjalankan test berdasarkan tag ===
-//    task apiTest(type: Test) {
+//    def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+//
+//    tasks.register('cucumber', JavaExec){
+//        description("Running Cucumber Test")
+//        group = 'verification'
+//
+//        dependsOn assemble, compileTestJava
+//
+//
+//        mainClass = "io.cucumber.core.cli.Main"
+//        classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+//        args = [
+//                '--plugin', 'html:reports/test-report-html',
+//                '--plugin', 'pretty',
+//                '--glue', 'com.dio',
+//                '--tags', "${tags}",
+//                'src/test/resources'
+//        ]
+//    }
+
+//     === Custom Gradle Task untuk menjalankan test berdasarkan tag ===
+//    tasks.register('CucumberApiTest') {
 //        useTestNG()
 //        systemProperty "cucumber.filter.tags", "@api"
+//        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
+//        testLogging.events "passed", "failed"
+//    }
+//
+//    tasks.register('CucumberWebTest'){
+//        useTestNG()
+//        systemProperty "cucumber.filter.tags", "@web"
 //        systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports/api.html, json:target/cucumber-reports/api.json"
 //        testLogging.events "passed", "failed"
 //    }

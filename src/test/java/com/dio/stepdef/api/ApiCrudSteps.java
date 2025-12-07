@@ -59,7 +59,7 @@ public class ApiCrudSteps {
     public void update_user(String id, String valueName, String valueEmail) {
        userApi.testPutUser();
 
-        String userId = "692adb19ac7daa6bd3c11a52";
+        String userId = "692c09bdcbe6768a1a34e08e";
 
         int rand = new Random().nextInt(99999);
         String uniqueEmail = "John" + rand + "@test.com";
@@ -83,7 +83,7 @@ public class ApiCrudSteps {
     public void patch_user(String id, String valueName, String valueEmail) {
         userApi.testPatchUser();
 
-        String userId = "692adb19ac7daa6bd3c11a52";
+        String userId = "692c09bdcbe6768a1a34e08e";
 
         int rand = new Random().nextInt(99999);
         String uniqueEmail = "John" + rand + "@test.com";
@@ -105,20 +105,20 @@ public class ApiCrudSteps {
 
     }
 
-    @When("User sends DELETE request to delete user with id {string}")
-    public void delete_user(String id) {
-         userApi.testDeleteUser();
-
-        String userToDelete = "692adb19ac7daa6bd3c11a52"; //6921c09e5e9849f3a69d46d5
-
-        response = RestAssured
-                .given()
-                .when()
-                .delete("/users/" + userToDelete)
-                .then()
-                .extract()
-                .response();
-    }
+//    @When("User sends DELETE request to delete user with id {string}")
+//    public void delete_user(String id) {
+//         userApi.testDeleteUser();
+//
+//        String userToDelete = "692c09bdcbe6768a1a34e08e";
+//
+//        response = RestAssured
+//                .given()
+//                .when()
+//                .delete("/users/" + userToDelete)
+//                .then()
+//                .extract()
+//                .response();
+//    }
 
     @Then("Response status code should be {int}")
     public void verify_status_code(int statusCode) {

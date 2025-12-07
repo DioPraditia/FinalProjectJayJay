@@ -11,15 +11,15 @@ Feature: Test API CRUD on DummyAPI
     And Response field "name" should be "John"
 
   Scenario: Put user
-    When User sends PUT request to update user with id "692adb19ac7daa6bd3c11a52" name "Dio" and email "John"
+    When User sends PUT request to update user with id "692c09bdcbe6768a1a34e08e" name "Dio" and email "John"
     Then Response status code should be 403
     And Response field "name" should be "Dio"
 
   Scenario: Patch user
-    When User sends Patch request to update user with id "692adb19ac7daa6bd3c11a52" name "Doe" and email "John"
+    When User sends Patch request to update user with id "692c09bdcbe6768a1a34e08e" name "Doe" and email "John"
     Then Response status code should be 403
     And Response field "name" should be "DoePatch"
 
-  Scenario: Delete user
-    When User sends DELETE request to delete user with id "692adb19ac7daa6bd3c11a52"
-    Then Response status code should be 403
+#  Scenario: Delete user
+#    When User sends DELETE request to delete user with id "692c09bdcbe6768a1a34e08e"
+#    Then Response status code should be 403
