@@ -42,7 +42,6 @@ dependencies {
 }
 
 test {
-    useJUnit()
 //    useTestNG()
 
     testLogging {
