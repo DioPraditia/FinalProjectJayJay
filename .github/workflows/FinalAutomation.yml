@@ -43,8 +43,10 @@ jobs:
       run: |
     - name: Give permission to gradlew
       run: chmod +x gradlew
-        ./gradlew clean test --tests "*CucumberWebTest"
 
+    - name: Run API Automation Tests
+      run: ./gradlew clean test --tests "*CucumberWebTest"
+        
     - name: Upload Web Automation Report
       uses: actions/upload-artifact@v4
       with:
