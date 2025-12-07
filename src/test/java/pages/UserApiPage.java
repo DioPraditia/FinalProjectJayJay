@@ -117,7 +117,7 @@ public class UserApiPage {
         RestAssured.baseURI = "https://dummyapi.io/data/v1/";
         //Data to update
         // Pastikan ini userId valid dari hasil GET /user
-        String userId = "692c09bdcbe6768a1a34e08e";
+        String userId = "69351f0bbb7ff3d25c08a72e";
         String newName = "Doe";
         //Test put user_id 2 -> update first name
         //First, get the atribute of user id 2
@@ -156,7 +156,7 @@ public class UserApiPage {
         RestAssured.baseURI = "https://dummyapi.io/data/v1/";
         //Data to update
 //        int userId = 3;
-        String userId = "692c09bdcbe6768a1a34e08e";
+        String userId = "69351f0bbb7ff3d25c08a72e";
         String newName = "DioPatch";
 
         String fname = given().when().get("/user/" +userId).getBody().jsonPath().get("data.firstName");
@@ -185,7 +185,7 @@ public class UserApiPage {
 //    public void testDeleteUser(){
 //        RestAssured.baseURI = "https://dummyapi.io/data/v1/";
 //        //Data to delete
-//        String userToDelete = "692c09bdcbe6768a1a34e08e";
+//        String userToDelete = "69351f0bbb7ff3d25c08a72e";
 //
 //        response = given().log().all()
 //                .header("Content-Type", "application/json")
@@ -193,7 +193,7 @@ public class UserApiPage {
 //                .header("app-id", "63a804408eb0cb069b57e43a")
 //                .when().delete("/user/" +userToDelete)
 //                .then().log().all()
-//                .assertThat().statusCode(404);
+//                .assertThat().statusCode(200);
 //
 //    }
 
