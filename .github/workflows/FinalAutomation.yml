@@ -51,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: web-automation-report
-        path: reports/WEB/test-report-html/
+        path: reports/WEB/
