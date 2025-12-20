@@ -1,59 +1,54 @@
-name: Automation Testing (Web & API)
+name: Run Automation Tests
 
 on:
-  workflow_dispatch:
   push:
     branches: ["main"]
   pull_request:
-    branches: ["main"]
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "17"
+    - name: Setup JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: "17"
+        distribution: "temurin"
 
-      - name: Give gradlew permission
-        run: chmod +x gradlew
+    # ===========================
+    # RUN API AUTOMATION (Cucumber)
+    # ===========================
+    - name: Run API Automation Tests
+      run: |
+    - name: Give permission to gradlew
+      run: chmod +x gradlew
 
-      # ==============================
-      # API TEST
-      # ==============================
-      - name: Run API Tests (@api)
-        run: ./gradlew clean cucumberApiTest
+    - name: Run API Automation Tests
+      run: ./gradlew clean test --tests "*CucumberApiTest"
 
-      - name: Upload API Test Reports (Artifacts v4)
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-test-report
-          path: |
-            build/reports/cucumber/**
-            build/cucumber-reports/**
-            build/reports/tests/**
-          if-no-files-found: ignore
+    - name: Upload API Automation Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-automation-report
+        path: reports/API/
 
-      # ==============================
-      # WEB TEST
-      # ==============================
-      - name: Run Web Tests (@web)
-        run: ./gradlew clean cucumberWebTest
+    # ===========================
+    # RUN WEB AUTOMATION (Cucumber / JUnit)
+    # ===========================
+    - name: Run Web Automation Tests
+      run: |
+    - name: Give permission to gradlew
+      run: chmod +x gradlew
 
-      - name: Upload Web Test Reports (Artifacts v4)
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-test-report
-          path: |
-            build/reports/cucumber/**
-            build/cucumber-reports/**
-            build/reports/tests/**
-          if-no-files-found: ignore
+    - name: Run API Automation Tests
+      run: ./gradlew clean test --tests "*CucumberWebTest"
+        
+    - name: Upload Web Automation Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-automation-report
+        path: reports/WEB/
