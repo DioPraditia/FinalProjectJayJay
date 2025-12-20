@@ -44,9 +44,10 @@ public class LoginStepDef extends BaseTest {
 
 
     @Then("user able toc see error message {string}")
-    public void userAbleTocSeeErrorMessage(String errorMessage) {
+    public void userAbleTocSeeErrorMessage(String errorMessage) throws InterruptedException {
         loginPage.validateErrorAppear(errorMessage);
         assertTrue(driver.getPageSource().contains(errorMessage));
+        Thread.sleep(3000);
     }
 
 }

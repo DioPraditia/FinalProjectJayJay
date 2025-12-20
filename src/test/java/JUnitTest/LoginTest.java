@@ -3,6 +3,7 @@ package JUnitTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import pages.web.CheckoutPage;
 import pages.web.HomePage;
 import pages.web.LoginPage;
 
@@ -17,6 +18,7 @@ public class LoginTest {
         //inisialisasi page object
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
+        CheckoutPage checkoutPage = new CheckoutPage(driver);
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.saucedemo.com/");
@@ -28,5 +30,7 @@ public class LoginTest {
 
         //
         homePage.validateOnHomePage();
+        checkoutPage.validateOnCheckoutPage();
+
     }
 }

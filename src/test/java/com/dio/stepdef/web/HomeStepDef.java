@@ -14,12 +14,14 @@ public class HomeStepDef extends BaseTest {
     HomePage homePage;
 
     @Then("user is on homepage")
-    public void userIsOnHomepage(){
+    public void userIsOnHomepage() throws InterruptedException {
         By productTitle = By.xpath("//*[@id=\"item_4_title_link\"]");
         WebElement productElement = driver.findElement(productTitle);
         assertTrue(productElement.isDisplayed());
         Assert.assertEquals("Sauce Labs Backpack", productElement.getText());
         homePage = new HomePage(driver);
         homePage.validateOnHomePage();
+        Thread.sleep(3000);
+
     }
 }
